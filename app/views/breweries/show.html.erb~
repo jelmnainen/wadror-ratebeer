@@ -7,9 +7,13 @@
 
 <p>
 	<% @brewery.beers.each do |beer| %>
-		<%= beer.name %>
+		<%= link_to beer.name, beer %>
 	<% end %>
 </p>
+
+<% if @brewery.average_rating > 0 %>
+    Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
+<%end%>
 
 <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
 <%= link_to 'Back', breweries_path %>

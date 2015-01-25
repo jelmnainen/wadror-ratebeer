@@ -1,0 +1,31 @@
+class Beer < ActiveRecord::Base
+	belongs_to :brewery
+	has_many :ratings, dependent: :destroy
+
+	def average_rating()
+
+		ratings = self.ratings.to_a
+
+		if(ratings.count > 0 )
+
+			@avg = 0
+
+			ratings.each do |rating|
+				@avg = @avg + rating.score
+			end
+
+			@avg = @avg / ratings.count
+
+			return @avg
+
+		end
+
+		return -1
+	
+	end #average_rating
+
+	def to_s
+		return "#{self.brewery.name}: #{name}"
+	end
+
+end
