@@ -16,6 +16,10 @@ module AverageRating
 
 		    @avg = @avg / ratings.count
 
+	    else
+	    
+	        return 0
+	    
 	    end
 	    
         return @avg
