@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '~>4.0.2'
 
 # Use sqlite3 as the database for dev, postgre in prod (because Heroku)
 group :development, :test do
@@ -9,6 +9,13 @@ group :development, :test do
 	gem 'byebug'
 	gem 'web-console', '~> 2.0'
 	gem 'better_errors'
+  gem 'rspec-rails', '~> 3.0'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do

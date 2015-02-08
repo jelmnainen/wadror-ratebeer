@@ -8,6 +8,8 @@ class Beer < ActiveRecord::Base
     
     validates :name,    uniqueness: true,
                         length: {minimum: 3}
+
+    validates :style,   presence: true
     
 	def to_s
 		return "#{self.brewery.name}: #{name}"
