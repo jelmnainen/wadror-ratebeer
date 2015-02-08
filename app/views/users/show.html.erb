@@ -4,9 +4,23 @@
     <h2>
         <%= @user.username %>
     </h2>
+
+    <p>Is a member in <%= pluralize(@user.memberships.count, "beer club") %> </p>
+
+    <% if(@user.memberships.count > 0) %>
+        <strong>Memberships:</strong>
+        <ul>
+          <% @user.memberships.each do |m| %>
+            <li>
+              <%= m.beer_club.name %>
+            </li>
+          <% end %>
+        </ul>
+    <% end %>
+
     
     <p>
-        has rated beers <%= @user.ratings.count %> times.
+        has rated beers <%= pluralize @user.ratings.count, "time" %>.
     </p>
     
     <% if(@user.ratings.count > 0) %>
@@ -14,7 +28,6 @@
         <strong>Ratings:</strong>
         <ul>
         <% @user.ratings.each do |r| %>
-            <% #raise %>
             <li>
                 <%= Beer.find(r.beer_id).name %>: <%= r.score %> points <%= link_to 'delete', rating_path(r.id), method: :delete %>
             </li>
@@ -23,5 +36,7 @@
 
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if @user == current_user %>
+    <%= link_to 'Change password', edit_user_path(@user) %>
+    <%= link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' } %></
+<% end %>

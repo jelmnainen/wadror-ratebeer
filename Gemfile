@@ -40,7 +40,7 @@ gem 'jbuilder', '~> 1.2'
 #for rails console
 gem 'rb-readline', '~> 0.4.2'
 
-ruby '2.0.0'
+ruby '2.2.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -48,7 +48,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+ gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
