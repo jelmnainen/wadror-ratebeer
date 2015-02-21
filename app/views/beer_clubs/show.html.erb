@@ -1,25 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @beer_club.name %>
-</p>
+<h2>
+  <%= "#{@beer_club.name} #{@beer_club.city}"%>
+</h2>
 
 <p>
-  <strong>Year:</strong>
-  <%= @beer_club.year %>
+  Founded in <%= @beer_club.founded %>
 </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @beer_club.city %>
-</p>
+<ul>
+  <% @beer_club.members.each do |member| %>
+    <li>
+      <%= link_to member.username, member %>
+    </li>
+  <% end %>
+</ul>
 
-<strong>Members</strong>
+<% if current_user %>
+  <% if @beer_club.members.include?(current_user) %>
+    <%= form_for(@membership, method: "delete") do |f| %>
+       <%= f.hidden_field :beer_club_id %>
+       <%= f.submit value: "end the membership" %>
+    <% end %>
+  <% else %>
+    <%= form_for(@membership) do |f| %>
+       <%= f.hidden_field :beer_club_id %>
+       <%= f.submit value: "join the club" %>
+    <% end %>
+  <% end %>
 
-<% @members.each do |m| %>
-    <li><%= m.username %></li>
+  <br>
+
+  <%= link_to 'Edit', edit_beer_club_path(@beer_club)  %>
 <% end %>
-
-<%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
-<%= link_to 'Back', beer_clubs_path %>

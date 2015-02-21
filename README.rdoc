@@ -1,4 +1,0 @@
-== WADROR Readme
-
-https://warm-plateau-1635.herokuapp.com/
-

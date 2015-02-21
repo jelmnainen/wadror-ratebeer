@@ -15,13 +15,16 @@ FactoryGirl.define do
 
   factory :brewery do
     name "anonymous"
-    year "1900"
+    year 1900
+  end
+
+  factory :style do
+    name "Lager"
   end
 
   factory :beer do
     name "anonymous"
     brewery
-    style "Lager"
+    style
   end
-
 end

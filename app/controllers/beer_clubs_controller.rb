@@ -1,5 +1,6 @@
 class BeerClubsController < ApplicationController
   before_action :set_beer_club, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /beer_clubs
   # GET /beer_clubs.json
@@ -10,7 +11,12 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
-    @members = BeerClub.find_by(id: params[:id]).members
+    if @beer_club.members.include? current_user
+      @membership = @beer_club.memberships.find_by user_id:current_user.id
+    else
+      @membership = Membership.new
+      @membership.beer_club = @beer_club
+    end
   end
 
   # GET /beer_clubs/new
@@ -30,9 +36,9 @@ class BeerClubsController < ApplicationController
     respond_to do |format|
       if @beer_club.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @beer_club }
+        format.json { render :show, status: :created, location: @beer_club }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @beer_club.errors, status: :unprocessable_entity }
       end
     end
@@ -44,9 +50,9 @@ class BeerClubsController < ApplicationController
     respond_to do |format|
       if @beer_club.update(beer_club_params)
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @beer_club }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @beer_club.errors, status: :unprocessable_entity }
       end
     end
@@ -57,7 +63,7 @@ class BeerClubsController < ApplicationController
   def destroy
     @beer_club.destroy
     respond_to do |format|
-      format.html { redirect_to beer_clubs_url }
+      format.html { redirect_to beer_clubs_url, notice: 'Beer club was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +76,6 @@ class BeerClubsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beer_club_params
-      params.require(:beer_club).permit(:name, :year, :city)
+      params.require(:beer_club).permit(:name, :founded, :city)
     end
 end

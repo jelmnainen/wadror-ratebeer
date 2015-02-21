@@ -1,29 +1,28 @@
-Ratebeer::Application.routes.draw do
+Rails.application.routes.draw do
+  resources :styles
+
   resources :memberships
 
   resources :beer_clubs
 
   resources :users
 
-  root 'breweries#index'
-
-  get 'kaikki_bisset', :to => 'beers#index'
-
-  get 'signup', to:'users#new'
-
-  get 'login',  to:'sessions#new'
-  get 'signin', to:'sessions#new'
-  delete 'signout', to:'sessions#destroy'
-
+  get 'signup', to: 'users#new'
+  get 'signin', to: 'sessions#new'
+  delete 'signout', to: 'sessions#destroy'
 
   resource :session, only: [:new, :create, :delete]
-
-  resources :ratings, only: [:index, :new, :create, :destroy]
 
   resources :beers
 
   resources :breweries
 
+  resources :ratings, only: [:index, :new, :create, :destroy]
+
+  resources :places, only: [:index, :show]
+  post 'places', to:'places#search'
+
+  root 'breweries#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

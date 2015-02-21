@@ -4,8 +4,8 @@
       <h2><%= pluralize(@beer_club.errors.count, "error") %> prohibited this beer_club from being saved:</h2>
 
       <ul>
-      <% @beer_club.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @beer_club.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
       </ul>
     </div>
@@ -16,8 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :year %><br>
-    <%= f.number_field :year %>
+    <%= f.label :founded %><br>
+    <%= f.number_field :founded %>
   </div>
   <div class="field">
     <%= f.label :city %><br>
