@@ -1,6 +1,10 @@
 class RatingsController < ApplicationController
   def index
     @ratings = Rating.all
+    @recentRatings = Rating.recent
+    @topBreweries = Brewery.top(3)
+    @topBeers = Beer.top(3)
+    @topRaters = User.topRaters(3)
   end
 
   def new

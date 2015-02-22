@@ -63,4 +63,8 @@ class User < ActiveRecord::Base
     end
     ratings_of_style.map(&:score).sum / ratings_of_style.count
   end
+
+  def self.topRaters(n)
+    sorted_by_rating_count_desc = User.all.sort_by{ |u| -(u.ratings.count||0) }
+  end
 end

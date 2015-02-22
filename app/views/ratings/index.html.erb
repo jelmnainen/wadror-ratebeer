@@ -2,10 +2,49 @@
 
 Total of <%= @ratings.count %> ratings given
 
-<ul>
-  <% @ratings.each do |rating| %>
-    <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
-  <% end %>
-</ul>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Recent ratings
+  </div>
+  <div class="panel-body">
+    <ul>
+      <% @recentRatings.each do |r| %>
+        <li><%= r %> by <%= link_to r.user.username, r.user %></li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>
+
+<%= render 'topList', objects: @topBreweries, objectName: "Top breweries" %>
+
+<%= render 'topList', objects: @topBeers, objectName: "Top beers" %>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Users with most ratings
+  </div>
+  <div class="panel-body">
+    <ul>
+      <% @topRaters.each do |ob| %>
+        <li><%= link_to ob.username, ob %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    All ratings
+  </div>
+  <div class="panel-body">
+    <ul>
+    <% @ratings.each do |rating| %>
+      <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
+    <% end %>
+    </ul>
+  </div>
+</div>
 
 <%= link_to 'New Rating', new_rating_path if current_user %>

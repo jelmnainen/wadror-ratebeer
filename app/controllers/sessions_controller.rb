@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def new
     # renderöi kirjautumissivun
   end
@@ -6,6 +7,10 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by username: params[:username]
     if user && user.authenticate(params[:password])
+      if user.penalty?
+        redirect_to :back, notice: "User account frozen, contact admins for details"
+        return
+      end
       session[:user_id] = user.id
       redirect_to user_path(user), notice: "Welcome back!"
     else

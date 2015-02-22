@@ -1,0 +1,11 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= objectName %>
+  </div>
+  <div class="panel-body">
+    <% objects.each do |ob| %>
+      <li><%= link_to ob.name, ob %></li>
+    <% end %>
+  </div>
+</div>

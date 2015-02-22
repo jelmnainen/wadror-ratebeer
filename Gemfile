@@ -57,6 +57,12 @@ group :test do
   gem 'webmock'
 end
 
+
+gem 'bootstrap-sass'
+group :development do
+  gem 'rails_layout'
+end
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'httparty'
