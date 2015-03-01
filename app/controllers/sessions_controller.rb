@@ -4,6 +4,10 @@ class SessionsController < ApplicationController
     # renderöi kirjautumissivun
   end
 
+  def oauth
+    # github-login
+  end
+
   def create
     user = User.find_by username: params[:username]
     if user && user.authenticate(params[:password])

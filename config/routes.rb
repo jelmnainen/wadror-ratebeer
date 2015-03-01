@@ -9,9 +9,12 @@ Rails.application.routes.draw do
     post "toggle_penalty", to: 'users#toggle_penalty'
   end
 
+  get 'auth/:provider/callback', to: 'sessions#create_oauth', as: :auth
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
+
+  get 'brewerylist', to: 'breweries#nglist'
 
   resource :session, only: [:new, :create, :delete]
 
